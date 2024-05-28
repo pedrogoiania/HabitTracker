@@ -5,12 +5,20 @@ import UserState, {
   defaultState as UserStateContext,
 } from './userState';
 
+import HabitState, {
+  reducer as HabitDispatchContext,
+  defaultState as HabitStateContext,
+} from './habitState';
+
 function StateConfig({ children }) {
   const [userState, userDispatch] = useReducer(UserDispatchContext, UserStateContext);
+  const [habitState, habitDispatch] = useReducer(HabitDispatchContext, HabitStateContext);
 
   return (
     <UserState initialState={userState} dispatch={userDispatch}>
-      {children}
+      <HabitState initialState={habitState} dispatch={habitDispatch}>
+        {children}
+      </HabitState>
     </UserState>
   );
 }

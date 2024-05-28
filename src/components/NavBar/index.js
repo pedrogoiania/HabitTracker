@@ -12,19 +12,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  title: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
-function NavBar({ title }) {
+function NavBar({ title, rightComponent }) {
   return (
     <View style={styles.container}>
-      <Text.Heading
-        style={{
-          fontSize: Constants.FontSizes.HeadingSize.medium,
-          fontFamily: Constants.FontNames.Primary.Bold,
-        }}
-      >
-        {title}
-      </Text.Heading>
+      <View style={styles.title}>
+        <Text.Heading
+          style={{
+            fontSize: Constants.FontSizes.HeadingSize.medium,
+            fontFamily: Constants.FontNames.Primary.Bold,
+          }}
+        >
+          {title}
+        </Text.Heading>
+      </View>
+
+      {rightComponent ? <View>{rightComponent}</View> : null}
     </View>
   );
 }

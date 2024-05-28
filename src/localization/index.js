@@ -5,7 +5,8 @@
 const strings = {
   home: 'Home',
   completed: 'Completed',
-  skip: 'Skip'
+  skip: 'Skip',
+  skipped: 'Skipped',
 };
 
 export default strings;

@@ -5,24 +5,31 @@ import { Pressable } from 'react-native';
 
 import check from './check.svg';
 import arrow from './arrow.svg';
+import filter from './filter';
 import Constants from '../Constants';
+import useUser from '../../hooks/User';
 
-const svgs = {
+const svgs = (color) => ({
   check,
   arrow,
-};
+  filter: filter({ color }),
+});
 
-function Icons({
-  width = 32,
-  height = 32,
-  color = Constants.Colors.Primary.white,
-  onPress,
-  name,
-  style,
-}) {
+function Icons({ width = 32, height = 32, color, onPress, name, style }) {
+  const { isDarkMode } = useUser();
+
+  const defaultColor = isDarkMode ? Constants.Colors.Primary.white : Constants.Colors.Primary.black;
+
   return (
     <Pressable onPress={onPress} style={style}>
-      <SvgXml color={color} fill={color} width={width} height={height} xml={svgs[name]} />
+      <SvgXml
+        color={color || defaultColor}
+        stroke={color || defaultColor}
+        fill={color || defaultColor}
+        width={width}
+        height={height}
+        xml={svgs(color || defaultColor)[name]}
+      />
     </Pressable>
   );
 }
