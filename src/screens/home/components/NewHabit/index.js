@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Modal, Platform, Pressable, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import Text from '../../../../components/Text';
+import { KeyboardAvoidingView, Modal, Platform, View } from 'react-native';
+
 import BaseView from '../../../../components/BaseView';
 import NavBar from '../../../../components/NavBar';
 import Icons from '../../../../components/Icons';
 import useHabits from '../../../../hooks/Habits';
-import Constants from '../../../../components/Constants';
+
+import InputText from '../../../../components/InputText';
+import Button from '../../../../components/Button';
 
 function NewHabit({ visible, setIsVisible }) {
   const { addHabit } = useHabits();
 
   const [name, setName] = useState('');
+
+  const addNewHabit = () => {
+    setIsVisible(false);
+    addHabit({ text: name });
+  };
 
   return (
     <Modal transparent animationType="slide" visible={visible}>
@@ -29,55 +35,11 @@ function NewHabit({ visible, setIsVisible }) {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <View style={{ flex: 1 }}>
-            <View>
-              <Text
-                style={{
-                  fontFamily: Constants.FontNames.Primary.Bold,
-                  marginBottom: 10,
-                }}
-              >
-                Title
-              </Text>
-              <TextInput
-                onChangeText={setName}
-                style={{
-                  backgroundColor: '#1F222A',
-                  color: 'white',
-                  height: 56,
-                  fontFamily: Constants.FontNames.Primary.SemiBold,
-                  paddingHorizontal: 20,
-                  borderRadius: 10,
-                }}
-                placeholder="Type the new Habit name"
-                placeholderTextColor={Constants.Colors.Secondary.gray}
-              />
-            </View>
+            <InputText onChange={setName} />
           </View>
 
           <View style={{ marginBottom: 80 }}>
-            <Pressable
-              style={{
-                width: '100%',
-                height: 60,
-                backgroundColor: Constants.Colors.Primary.info,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 8,
-              }}
-              onPress={() => {
-                setIsVisible(false);
-                addHabit({ text: name });
-              }}
-            >
-              <Text.Heading
-                style={{
-                  fontSize: Constants.FontSizes.HeadingSize.small,
-                  fontFamily: Constants.FontNames.Primary.Bold,
-                }}
-              >
-                Add
-              </Text.Heading>
-            </Pressable>
+            <Button onPress={addNewHabit} />
           </View>
         </KeyboardAvoidingView>
       </BaseView>
