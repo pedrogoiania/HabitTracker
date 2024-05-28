@@ -5,6 +5,7 @@ import { Pressable } from 'react-native';
 
 import check from './check.svg';
 import arrow from './arrow.svg';
+import plus from './plus.svg';
 import filter from './filter';
 import Constants from '../Constants';
 import useUser from '../../hooks/User';
@@ -13,6 +14,7 @@ const svgs = (color) => ({
   check,
   arrow,
   filter: filter({ color }),
+  plus,
 });
 
 function Icons({ width = 32, height = 32, color, onPress, name, style }) {

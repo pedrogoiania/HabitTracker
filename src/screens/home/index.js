@@ -12,18 +12,27 @@ import HabitItem from './components/HabitItem';
 import useHabits from '../../hooks/Habits';
 import Icons from '../../components/Icons';
 import useUser from '../../hooks/User';
+import NewHabitFloatButton from './components/NewHabitFloatButton';
+import NewHabit from './components/NewHabit';
 
 function Home() {
   const { habits, completeHabit, skipHabit } = useHabits();
   const { isDarkMode, setIsDarkMode } = useUser();
 
+  const [visible, setIsVisible] = useState(false);
+
   const changeTheme = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const changeModalVisible = () => {
+    setIsVisible((s) => !s);
   };
 
   return (
     <BaseView>
       <NavBar title={strings.home} rightComponent={<Icons name="filter" onPress={changeTheme} />} />
+      <NewHabitFloatButton onPress={changeModalVisible} />
       <SectionList
         sections={habits}
         keyExtractor={(item, index) => item + index}
@@ -33,6 +42,8 @@ function Home() {
         )}
         renderSectionHeader={({ section: { title } }) => <SectionDivider title={title} />}
       />
+
+      <NewHabit visible={visible} setIsVisible={changeModalVisible} />
     </BaseView>
   );
 }
